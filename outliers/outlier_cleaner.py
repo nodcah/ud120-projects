@@ -1,4 +1,5 @@
 #!/usr/bin/python
+import math
 
 
 def outlierCleaner(predictions, ages, net_worths):
@@ -13,8 +14,14 @@ def outlierCleaner(predictions, ages, net_worths):
     
     cleaned_data = []
 
-    ### your code goes here
+    for i in xrange(len(predictions)):
+        cleaned_data.append((ages[i], net_worths[i], abs(net_worths[i]-predictions[i])/net_worths[i]))
 
-    
+    times_to_iterate = int(math.ceil(len(predictions)*.1))
+
+    for i in xrange(times_to_iterate):
+        a,b = max(enumerate(cleaned_data), key=lambda x: x[1][2])
+        cleaned_data.pop(a)
+
     return cleaned_data
 
