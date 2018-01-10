@@ -55,11 +55,21 @@ print(min(a["salary"] for a in data_dict.values() if a["salary"]!="NaN"))
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
 feature_1 = "salary"
 feature_2 = "exercised_stock_options"
-poi  = "poi"
+poi = "poi"
 features_list = [poi, feature_1, feature_2]
 data = featureFormat(data_dict, features_list )
 poi, finance_features = targetFeatureSplit( data )
-
+from sklearn.preprocessing import MinMaxScaler
+mmscaler = MinMaxScaler()
+print(mmscaler.fit_transform(finance_features))
+print(mmscaler.transform(numpy.array([[200000, 1000000]])))
+# salaryData = numpy.array([[float(i[0]) for i in finance_features]])
+# stockData = numpy.array([[float(i[1]) for i in finance_features]])
+# a = mmscaler.fit_transform(salaryData)
+# mmscaler = MinMaxScaler()
+# b = mmscaler.fit_transform(stockData)
+# print(a)
+# print(b)
 
 ### in the "clustering with 3 features" part of the mini-project,
 ### you'll want to change this line to 
@@ -75,9 +85,6 @@ from sklearn.cluster import KMeans
 clusterer = KMeans(n_clusters=2)
 clusterer.fit(data)
 pred = clusterer.predict(data)
-
-
-
 
 ### rename the "name" parameter when you change the number of features
 ### so that the figure gets saved to a different file
