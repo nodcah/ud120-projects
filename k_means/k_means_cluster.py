@@ -43,6 +43,13 @@ data_dict = pickle.load( open("../final_project/final_project_dataset.pkl", "r")
 ### there's an outlier--remove it! 
 data_dict.pop("TOTAL", 0)
 
+print(max(a["exercised_stock_options"] for a in data_dict.values() if a["exercised_stock_options"]!="NaN"))
+print(min(a["exercised_stock_options"] for a in data_dict.values() if a["exercised_stock_options"]!="NaN"))
+for name, d in data_dict.items():
+    print "{:20} | {:10}".format(name, d["exercised_stock_options"])
+
+print(max(a["salary"] for a in data_dict.values() if a["salary"]!="NaN"))
+print(min(a["salary"] for a in data_dict.values() if a["salary"]!="NaN"))
 
 ### the input features we want to use 
 ### can be any key in the person-level dictionary (salary, director_fees, etc.) 
@@ -58,12 +65,16 @@ poi, finance_features = targetFeatureSplit( data )
 ### you'll want to change this line to 
 ### for f1, f2, _ in finance_features:
 ### (as it's currently written, the line below assumes 2 features)
-for f1, f2 in finance_features:
-    plt.scatter( f1, f2 )
-plt.show()
+# for f1, f2, f3 in finance_features:
+#     plt.scatter( f1, f2 )
+# plt.show()
 
 ### cluster here; create predictions of the cluster labels
 ### for the data and store them to a list called pred
+from sklearn.cluster import KMeans
+clusterer = KMeans(n_clusters=2)
+clusterer.fit(data)
+pred = clusterer.predict(data)
 
 
 
