@@ -38,6 +38,14 @@ labels_train   = labels_train[:150]
 
 
 ### your code goes here
+from sklearn import tree, metrics
+clf = tree.DecisionTreeClassifier()
+clf.fit(features_train, labels_train)
+print(metrics.accuracy_score(labels_test, clf.predict(features_test)))
+print(len(features_train))
+importances = clf.feature_importances_
+most_important = filter(lambda x: x[1] > .2, enumerate(importances))
+print(most_important)
 
 
-
+print([vectorizer.get_feature_names()[i[0]] for i in most_important])

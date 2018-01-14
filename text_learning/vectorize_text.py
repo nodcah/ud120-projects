@@ -23,7 +23,7 @@ from parse_out_email_text import parseOutText
 
     The data is stored in lists and packed away in pickle files at the end.
 """
-
+import time
 
 from_sara  = open("from_sara.txt", "r")
 from_chris = open("from_chris.txt", "r")
@@ -31,6 +31,7 @@ from_chris = open("from_chris.txt", "r")
 from_data = []
 word_data = []
 
+t0 = time.time()
 for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
     for path in from_person:
         path = os.path.join('..', path[:-1])
@@ -41,7 +42,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
         email_text = parseOutText(email)
         ### use str.replace() to remove any instances of the words
         ### ["sara", "shackleton", "chris", "germani"]
-        email_text = email_text.replace("sara","").replace("shackleton", "").replace("chris","").replace("germani","")
+        email_text = email_text.replace("sara","").replace("shackleton", "").replace("chris","").replace("germani","").replace("sshacklensf","").replace("cgermannsf","")
 
         ### append the text to word_data
         word_data.append(email_text)
@@ -51,6 +52,7 @@ for name, from_person in [("sara", from_sara), ("chris", from_chris)]:
 
         email.close()
 
+print(time.time()-t0)
 print "emails processed"
 from_sara.close()
 from_chris.close()
